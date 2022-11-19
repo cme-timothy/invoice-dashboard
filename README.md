@@ -1,6 +1,6 @@
 # Invoice dashboard
 
-This project is being built with [Typescript](https://www.typescriptlang.org/), [React](https://reactjs.org/) and [Vite](https://vitejs.dev/). I used [Chakra UI](https://chakra-ui.com/) as my prefered way of styling this applikation.
+This project is being built with [TypeScript](https://www.typescriptlang.org/), [React](https://reactjs.org/) and [Vite](https://vitejs.dev/). I used [Chakra UI](https://chakra-ui.com/) as my prefered way of styling this applikation.
 
 ## Pre-requisites
 
