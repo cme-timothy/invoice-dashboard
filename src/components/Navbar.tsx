@@ -1,3 +1,19 @@
+import { Flex } from "@chakra-ui/react";
+import NavLink from "./NavLink";
+import {
+  faClipboard,
+  faCalendar,
+  faFolder,
+  faFile,
+} from "@fortawesome/free-regular-svg-icons";
+
 export default function Navbar() {
-  return <h2>Navbar</h2>;
+  return (
+    <Flex direction="column" mt="2em">
+      <NavLink link={"/"} name={"Overview"} icon={faCalendar} />
+      <NavLink link={"/invoices"} name={"Invoices"} icon={faFile} />
+      <NavLink link={"/tasks"} name={"Tasks"} icon={faClipboard} />
+      <NavLink link={"/projects"} name={"Projects"} icon={faFolder} />
+    </Flex>
+  );
 }
