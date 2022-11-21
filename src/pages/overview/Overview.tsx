@@ -9,7 +9,7 @@ export default function Overview() {
       </Helmet>
       <Flex direction="column" w="100%" h="100vh">
         <Flex h="5.5em" bg="white" align="center">
-          <Heading ml="1em">Overview</Heading>
+          <Heading p="1em">Overview</Heading>
         </Flex>
         <SimpleGrid minChildWidth="25em" spacing="1em" m="2em" overflow="auto">
           <Box bg="white" minH="15em" p="1em">
