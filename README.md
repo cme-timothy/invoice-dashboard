@@ -24,19 +24,19 @@ npm install -g json-server
 
 ## How to run project locally
 
-To setup a local development server, run:
+To setup local development server, run:
 
 ```
 npm run dev
 ```
 
-To setup a local JSON server, run:
+To setup local JSON server, run:
 
 ```
-json-server --watch src/data/db.json --port 4000
+json-server --watch src/data/db.json --port 4000 -m ./node_modules/json-server-auth
 ```
 
-## How to build a production bundle
+## How to build production bundle
 
 To build the webpage for production, run:
 
