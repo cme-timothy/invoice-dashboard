@@ -5,6 +5,7 @@ import {
   faCalendar,
   faFolder,
   faFile,
+  faHourglass,
 } from "@fortawesome/free-regular-svg-icons";
 
 export default function Navbar() {
@@ -13,6 +14,7 @@ export default function Navbar() {
       <NavLink link={"/"} name={"Overview"} icon={faCalendar} />
       <NavLink link={"/invoices"} name={"Invoices"} icon={faFile} />
       <NavLink link={"/tasks"} name={"Tasks"} icon={faClipboard} />
+      <NavLink link={"/timekeeping"} name={"Timekeeping"} icon={faHourglass} />
       <NavLink link={"/projects"} name={"Projects"} icon={faFolder} />
     </Flex>
   );
