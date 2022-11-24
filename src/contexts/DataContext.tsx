@@ -73,11 +73,7 @@ export function DataProvider({ children }: { children?: React.ReactNode }) {
           }
         );
         const dataChecked = response.data.map((project) => {
-          function isData(data: Projects[]): data is Projects[] {
-            return "name" in project && "color" in project && "id" in project;
-          }
-          const data = isData(response.data);
-          return data;
+          return "name" in project && "color" in project && "id" in project;
         });
 
         const found = dataChecked.find((element) => element === false);
@@ -106,20 +102,16 @@ export function DataProvider({ children }: { children?: React.ReactNode }) {
         );
 
         const dataChecked = response.data.map((tasks) => {
-          function isData(data: Projects[]): data is Projects[] {
-            return (
-              "project" in tasks &&
-              "color" in tasks &&
-              "name" in tasks &&
-              "date" in tasks &&
-              "time" in tasks &&
-              "seconds" in tasks &&
-              "projectId" in tasks &&
-              "id" in tasks
-            );
-          }
-          const data = isData(response.data);
-          return data;
+          return (
+            "project" in tasks &&
+            "color" in tasks &&
+            "name" in tasks &&
+            "date" in tasks &&
+            "time" in tasks &&
+            "seconds" in tasks &&
+            "projectId" in tasks &&
+            "id" in tasks
+          );
         });
 
         const found = dataChecked.find((element) => element === false);
