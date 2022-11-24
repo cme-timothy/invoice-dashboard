@@ -33,7 +33,7 @@ npm run dev
 To setup local JSON server, run:
 
 ```
-json-server --watch src/data/db.json --port 4000 -m ./node_modules/json-server-auth
+json-server src/data/db.json -m ./node_modules/json-server-auth -r src/data/routes.json
 ```
 
 ## How to sign in
