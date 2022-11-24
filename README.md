@@ -41,6 +41,8 @@ json-server src/data/db.json -m ./node_modules/json-server-auth -r src/data/rout
 Email: olivier@mail.com
 Password: bestPassw0rd
 
+Remember: Access token expires after 1 hour
+
 ## How to build production bundle
 
 To build the webpage for production, run:
