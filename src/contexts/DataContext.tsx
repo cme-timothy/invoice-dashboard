@@ -30,7 +30,7 @@ interface DashboardContext {
   token(): false | PostResponse;
   getProjects: () => Promise<void>;
   projects: Projects[];
-  getTasks: () => Promise<void>;
+  getTasks: (patch?: boolean) => Promise<void>;
   tasks: Tasks[];
 }
 
@@ -92,7 +92,7 @@ export function DataProvider({ children }: { children?: React.ReactNode }) {
     }
   }
 
-  async function getTasks() {
+  async function getTasks(patch?: boolean) {
     const accessToken = token();
     if (accessToken !== false) {
       try {
@@ -124,7 +124,14 @@ export function DataProvider({ children }: { children?: React.ReactNode }) {
 
         const found = dataChecked.find((element) => element === false);
         if (found !== false) {
-          setTasks(response.data);
+          if (patch === true) {
+            const allTimestamps = tasks.filter((task) => {
+              return task.time !== "00:00:00";
+            });
+            setTasks(allTimestamps);
+          } else {
+            setTasks(response.data);
+          }
         }
       } catch (error) {
         console.log(error);
