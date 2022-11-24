@@ -51,7 +51,7 @@ export default function Timekeeping() {
       </Helmet>
       <Flex direction="column" w="100%" h="100vh">
         <Flex h="5.5em" bg="white" align="center">
-          <Heading p="1em">Tasks</Heading>
+          <Heading p="1em">Timekeeping</Heading>
         </Flex>
         <TableContainer m="2em" bg="white">
           <Table variant="simple">
