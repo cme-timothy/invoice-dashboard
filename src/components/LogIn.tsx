@@ -15,12 +15,14 @@ import {
   useDisclosure,
   FormErrorMessage,
 } from "@chakra-ui/react";
+import { useDataContext } from "../hooks/useDataContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
 import { useRef, useState } from "react";
 import axios from "axios";
 
 export default function LogIn() {
+  const { getProjects, getTasks } = useDataContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
   const finalRef = useRef(null);
@@ -54,6 +56,8 @@ export default function LogIn() {
       if (data === true) {
         setLogIn(true);
         localStorage.setItem("data", JSON.stringify(response.data));
+        getProjects();
+        getTasks();
       }
     } catch (error) {
       console.log(error);
