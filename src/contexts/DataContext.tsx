@@ -117,7 +117,7 @@ export function DataProvider({ children }: { children?: React.ReactNode }) {
         const found = dataChecked.find((element) => element === false);
         if (found !== false) {
           if (patch === true) {
-            const allTimestamps = tasks.filter((task) => {
+            const allTimestamps = response.data.filter((task) => {
               return task.time !== "00:00:00";
             });
             setTasks(allTimestamps);
