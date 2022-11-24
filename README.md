@@ -36,6 +36,11 @@ To setup local JSON server, run:
 json-server --watch src/data/db.json --port 4000 -m ./node_modules/json-server-auth
 ```
 
+## How to sign in
+
+Email: olivier@mail.com
+Password: bestPassw0rd
+
 ## How to build production bundle
 
 To build the webpage for production, run:

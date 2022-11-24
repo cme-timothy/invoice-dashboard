@@ -41,13 +41,20 @@ export default function LogIn() {
   async function authenticate() {
     try {
       const response = await axios.post<PostResponse>(
-        "http://localhost:4000/login",
+        "http://localhost:3000/login",
         {
           email: email,
           password: password,
         }
       );
-      setLogIn(true);
+      function isData(data: PostResponse): data is PostResponse {
+        return "accessToken" in data && "user" in data;
+      }
+      const data = isData(response.data);
+      if (data === true) {
+        setLogIn(true);
+        localStorage.setItem("data", JSON.stringify(response.data));
+      }
     } catch (error) {
       console.log(error);
       setLogIn(false);

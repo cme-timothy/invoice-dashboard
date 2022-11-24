@@ -1,7 +1,18 @@
 import { Helmet } from "react-helmet-async";
 import { Flex, Heading, SimpleGrid, Box } from "@chakra-ui/react";
+import { useDataContext } from "../../hooks/useDataContext";
+import { useEffect } from "react";
 
 export default function Overview() {
+  const { projects, getProjects, tasks, getTasks } = useDataContext();
+
+  useEffect(() => {
+    getProjects();
+    console.log(projects);
+    getTasks();
+    console.log(tasks);
+  }, []);
+
   return (
     <>
       <Helmet>
