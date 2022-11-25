@@ -18,8 +18,16 @@ import {
 import { useDataContext } from "../hooks/useDataContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+
+type PostResponse = {
+  accessToken: string;
+  user: {
+    email: string;
+    id: number;
+  };
+};
 
 export default function LogIn() {
   const { getProjects, getTasks } = useDataContext();
@@ -30,15 +38,14 @@ export default function LogIn() {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [LogIn, setLogIn] = useState(false);
+  const [logIn, setLogIn] = useState("Sign in");
 
-  type PostResponse = {
-    accessToken: string;
-    user: {
-      email: string;
-      id: number;
-    };
-  };
+  useEffect(() => {
+    const isLogIn = localStorage.getItem("logIn");
+    if (isLogIn !== null) {
+      setLogIn(JSON.parse(isLogIn));
+    }
+  }, []);
 
   async function authenticate() {
     try {
@@ -54,14 +61,14 @@ export default function LogIn() {
       }
       const data = isData(response.data);
       if (data === true) {
-        setLogIn(true);
+        setLogIn(email);
+        localStorage.setItem("logIn", JSON.stringify(email));
         localStorage.setItem("data", JSON.stringify(response.data));
         getProjects();
         getTasks();
       }
     } catch (error) {
       console.log(error);
-      setLogIn(false);
     }
   }
 
@@ -102,7 +109,7 @@ export default function LogIn() {
           <FontAwesomeIcon icon={faCircleUser} />
         </Box>
         <Text pl="0.5em" pr="1em">
-          Sign in
+          {logIn}
         </Text>
       </Button>
 
