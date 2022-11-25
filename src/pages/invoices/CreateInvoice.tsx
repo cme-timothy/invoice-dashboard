@@ -100,7 +100,7 @@ export default function LogIn() {
       December: 31,
     };
 
-    const calender = [];
+    const calender: string[] = [];
     for (let y = year - 1; y <= year + 1; y++) {
       for (let m = 0; m <= 12; m++) {
         for (let d = 1; d <= Object.values(calenderYear)[m - 1]; d++) {
