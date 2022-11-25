@@ -173,7 +173,7 @@ export default function LogIn() {
                 }
               }}
             >
-              Log in
+              Sign in
             </Button>
           </ModalFooter>
         </ModalContent>
