@@ -130,7 +130,7 @@ export default function LogIn() {
           backdropInvert="80%"
           backdropBlur="2px"
         />
-        <ModalContent>
+        <ModalContent m="8em 1em auto 1em">
           <ModalHeader>Sign in</ModalHeader>
           <ModalCloseButton />
 
@@ -162,8 +162,10 @@ export default function LogIn() {
             </FormControl>
           </ModalBody>
 
-          <ModalFooter>
+          <ModalFooter justifyContent="center">
             <Button
+              pl="50%"
+              pr="50%"
               onClick={() => {
                 if (email !== "" && password !== "") {
                   authenticate();

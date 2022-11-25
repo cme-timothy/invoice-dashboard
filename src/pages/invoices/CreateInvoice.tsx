@@ -17,6 +17,7 @@ import {
   MenuItem,
   MenuList,
   Text,
+  Flex,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useDataContext } from "../../hooks/useDataContext";
@@ -147,7 +148,7 @@ export default function LogIn() {
           backdropInvert="80%"
           backdropBlur="2px"
         />
-        <ModalContent>
+        <ModalContent m="8em 1em auto 1em">
           <ModalHeader>Create invoice</ModalHeader>
           <ModalCloseButton />
 
@@ -165,36 +166,37 @@ export default function LogIn() {
                 <FormErrorMessage>Customer name is required.</FormErrorMessage>
               )}
             </FormControl>
-            <Menu>
-              <MenuButton
-                border={0}
-                mt="1em"
-                as={Button}
-                rightIcon={<ChevronDownIcon fontSize="4xl" />}
-                borderRadius={0}
-              >
-                <Text fontSize="lg" ml="0.5em" align="left">
-                  {projectName}
-                </Text>
-              </MenuButton>
-              <MenuList>
-                {projects.map((data) => {
-                  return (
-                    <MenuItem
-                      onClick={() => handleProjectClick(data.name)}
-                      key={data.id}
-                    >
-                      {data.name}
-                    </MenuItem>
-                  );
-                })}
-              </MenuList>
-            </Menu>
-            <TasksMenu projectName={projectName} />
+            <Flex direction="column">
+              <Menu>
+                <MenuButton
+                  border={0}
+                  mt="2em"
+                  as={Button}
+                  rightIcon={<ChevronDownIcon fontSize="3xl" />}
+                >
+                  <Text fontSize="lg" textAlign="left">{projectName}</Text>
+                </MenuButton>
+                <MenuList>
+                  {projects.map((data) => {
+                    return (
+                      <MenuItem
+                        onClick={() => handleProjectClick(data.name)}
+                        key={data.id}
+                      >
+                        {data.name}
+                      </MenuItem>
+                    );
+                  })}
+                </MenuList>
+              </Menu>
+              <TasksMenu projectName={projectName} />
+            </Flex>
           </ModalBody>
 
-          <ModalFooter>
+          <ModalFooter justifyContent="center">
             <Button
+              pl="50%"
+              pr="50%"
               onClick={() => {
                 if (customerName !== "") {
                   postInvoice();
@@ -205,7 +207,7 @@ export default function LogIn() {
                 }
               }}
             >
-              Create
+              Create invoice
             </Button>
           </ModalFooter>
         </ModalContent>

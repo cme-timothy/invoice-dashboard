@@ -19,14 +19,13 @@ export default function TasksMenu(props: { projectName: string }) {
         border={0}
         mt="1em"
         as={Button}
-        rightIcon={<ChevronDownIcon fontSize="4xl" />}
-        borderRadius={0}
+        rightIcon={<ChevronDownIcon fontSize="3xl" />}
       >
-        <Text fontSize="lg" ml="0.5em" align="left">
+        <Text fontSize="lg" textAlign="left">
           Choose Tasks
         </Text>
       </MenuButton>
-      <MenuList minWidth="240px">
+      <MenuList>
         <MenuOptionGroup title="Tasks">
           {tasks.map((data) => {
             if (data.project === props.projectName) {
