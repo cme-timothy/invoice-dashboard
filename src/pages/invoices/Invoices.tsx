@@ -9,18 +9,40 @@ import {
   Td,
   Th,
   Tbody,
+  Button,
 } from "@chakra-ui/react";
 import CreateInvoice from "./CreateInvoice";
 import { useEffect } from "react";
 import { useDataContext } from "../../hooks/useDataContext";
+import axios from "axios";
 
 export default function Invoices() {
-  const { projects, getProjects, tasks, getTasks } = useDataContext();
+  const { invoices, getInvoices, getProjects, getTasks, token } =
+    useDataContext();
 
   useEffect(() => {
     getProjects();
     getTasks();
+    getInvoices();
   }, []);
+
+  async function deleteInvoice(id: number) {
+    const accessToken = token();
+    if (accessToken !== false) {
+      try {
+        await axios.delete(`http://localhost:3000/invoices/${id}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken.accessToken}`,
+          },
+        });
+        getInvoices();
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      console.log("not logged in");
+    }
+  }
 
   return (
     <>
@@ -43,12 +65,26 @@ export default function Invoices() {
               </Tr>
             </Thead>
             <Tbody>
-              <Tr>
-                <Td>0</Td>
-                <Td>0</Td>
-                <Td>0</Td>
-                <Td>0</Td>
-              </Tr>
+              {invoices.map((invoice) => {
+                return (
+                  <Tr
+                    key={invoice.id}
+                    borderTop="1px solid"
+                    borderBottom="1px Solid"
+                    borderColor="gray.100"
+                  >
+                    <Td>{invoice.customerName}</Td>
+                    <Td>{invoice.sumTotal}</Td>
+                    <Td>{invoice.expirationDate}</Td>
+                    <Td>{invoice.status}</Td>
+                    <Td p="0.5em">
+                      <Button onClick={() => deleteInvoice(invoice.id)}>
+                        Delete
+                      </Button>
+                    </Td>
+                  </Tr>
+                );
+              })}
             </Tbody>
           </Table>
         </TableContainer>

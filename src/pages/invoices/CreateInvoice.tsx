@@ -25,7 +25,8 @@ import axios from "axios";
 import TasksMenu from "./TasksMenu";
 
 export default function LogIn() {
-  const { projects, invoiceTasks, setInvoiceTasks, token } = useDataContext();
+  const { projects, invoiceTasks, setInvoiceTasks, getInvoices, token } =
+    useDataContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
   const finalRef = useRef(null);
@@ -54,6 +55,7 @@ export default function LogIn() {
             },
           }
         );
+        getInvoices();
       } catch (error) {
         console.log(error);
       }

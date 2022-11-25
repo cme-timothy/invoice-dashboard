@@ -30,6 +30,15 @@ type InvoiceTasks = {
   seconds: number;
 };
 
+type Invoices = {
+  status: string;
+  projectName: string;
+  expirationDate: string;
+  sumTotal: number;
+  customerName: string;
+  id: number;
+};
+
 interface DashboardContext {
   token(): false | PostResponse;
   getProjects: () => Promise<void>;
@@ -38,6 +47,8 @@ interface DashboardContext {
   tasks: Tasks[];
   invoiceTasks: InvoiceTasks[];
   setInvoiceTasks: React.Dispatch<React.SetStateAction<InvoiceTasks[]>>;
+  invoices: Invoices[];
+  getInvoices: () => Promise<void>;
 }
 
 export const DataContext = createContext<DashboardContext | null>(null);
@@ -46,6 +57,7 @@ export function DataProvider({ children }: { children?: React.ReactNode }) {
   const [projects, setProjects] = useState<Projects[]>([]);
   const [tasks, setTasks] = useState<Tasks[]>([]);
   const [invoiceTasks, setInvoiceTasks] = useState<InvoiceTasks[]>([]);
+  const [invoices, setInvoices] = useState<Invoices[]>([]);
 
   function token() {
     const stringifiedAuthentication = localStorage.getItem("data");
@@ -140,6 +152,42 @@ export function DataProvider({ children }: { children?: React.ReactNode }) {
     }
   }
 
+  async function getInvoices() {
+    const accessToken = token();
+    if (accessToken !== false) {
+      try {
+        const response = await axios.get<Invoices[]>(
+          "http://localhost:3000/invoices",
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken.accessToken}`,
+            },
+          }
+        );
+
+        const dataChecked = response.data.map((invoices) => {
+          return (
+            "status" in invoices &&
+            "projectName" in invoices &&
+            "expirationDate" in invoices &&
+            "sumTotal" in invoices &&
+            "customerName" in invoices &&
+            "id" in invoices
+          );
+        });
+
+        const found = dataChecked.find((element) => element === false);
+        if (found !== false) {
+          setInvoices(response.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      console.log("not logged in");
+    }
+  }
+
   const dataValue = {
     token,
     getProjects,
@@ -148,6 +196,8 @@ export function DataProvider({ children }: { children?: React.ReactNode }) {
     tasks,
     invoiceTasks,
     setInvoiceTasks,
+    invoices,
+    getInvoices,
   };
 
   return (
