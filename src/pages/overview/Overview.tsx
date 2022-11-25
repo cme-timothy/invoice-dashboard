@@ -1,11 +1,19 @@
 import { Helmet } from "react-helmet-async";
-import { Flex, Heading, SimpleGrid, Box } from "@chakra-ui/react";
+import {
+  Flex,
+  Heading,
+  SimpleGrid,
+  Box,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import { useDataContext } from "../../hooks/useDataContext";
 import { useEffect } from "react";
+import NavbarToggle from "../../components/NavbarToggle";
 
-export default function Overview() {
+export default function Overview({ onToggle }: Toggle) {
   const { projects, getProjects, tasks, getTasks, invoices, getInvoices } =
     useDataContext();
+  const [phoneSize] = useMediaQuery("(max-width: 950px)");
 
   useEffect(() => {
     getProjects();
@@ -119,7 +127,10 @@ export default function Overview() {
       </Helmet>
       <Flex direction="column" w="100%" h="100vh">
         <Flex h="5.5em" bg="white" align="center">
-          <Heading p="1em">Overview</Heading>
+          {phoneSize && <NavbarToggle onToggle={onToggle} />}
+          <Heading p="1em" ml="1em">
+            Overview
+          </Heading>
         </Flex>
         <SimpleGrid minChildWidth="28em" spacing="1em" m="2em" overflow="auto">
           <Box bg="white" minH="4.5em" p="1em">

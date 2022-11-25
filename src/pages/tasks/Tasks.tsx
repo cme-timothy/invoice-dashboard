@@ -11,13 +11,16 @@ import {
   Tbody,
   Button,
   Box,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { useDataContext } from "../../hooks/useDataContext";
 import { useEffect } from "react";
 import axios from "axios";
+import NavbarToggle from "../../components/NavbarToggle";
 
-export default function Tasks() {
+export default function Tasks({ onToggle }: Toggle) {
   const { tasks, getTasks, token } = useDataContext();
+  const [phoneSize] = useMediaQuery("(max-width: 950px)");
 
   useEffect(() => {
     getTasks();
@@ -48,7 +51,10 @@ export default function Tasks() {
       </Helmet>
       <Flex direction="column" w="100%" h="100vh">
         <Flex h="5.5em" bg="white" align="center">
-          <Heading p="1em">Tasks</Heading>
+          {phoneSize && <NavbarToggle onToggle={onToggle} />}
+          <Heading p="1em" ml="1em">
+            Tasks
+          </Heading>
         </Flex>
         <Flex direction="column" overflow="auto">
           <Box minH="min-content">

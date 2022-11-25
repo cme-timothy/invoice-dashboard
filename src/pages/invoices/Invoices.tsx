@@ -11,15 +11,18 @@ import {
   Tbody,
   Button,
   Box,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import CreateInvoice from "./CreateInvoice";
 import { useEffect } from "react";
 import { useDataContext } from "../../hooks/useDataContext";
 import axios from "axios";
+import NavbarToggle from "../../components/NavbarToggle";
 
-export default function Invoices() {
+export default function Invoices({ onToggle }: Toggle) {
   const { invoices, getInvoices, getProjects, getTasks, token } =
     useDataContext();
+  const [phoneSize] = useMediaQuery("(max-width: 950px)");
 
   useEffect(() => {
     getProjects();
@@ -52,7 +55,10 @@ export default function Invoices() {
       </Helmet>
       <Flex direction="column" w="100%" h="100vh">
         <Flex justify="space-between" h="5.5em" bg="white" align="center">
-          <Heading p="1em">Invoices</Heading>
+          {phoneSize && <NavbarToggle onToggle={onToggle} />}
+          <Heading p="1em" ml="1em">
+            Invoices
+          </Heading>
           <CreateInvoice />
         </Flex>
         <Flex direction="column" overflow="auto">

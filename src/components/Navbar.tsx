@@ -8,9 +8,9 @@ import {
   faHourglass,
 } from "@fortawesome/free-regular-svg-icons";
 
-export default function Navbar() {
+export default function Navbar({ onToggle }: Toggle) {
   return (
-    <Flex direction="column" mt="2em">
+    <Flex direction="column" mt="2em" onClick={onToggle}>
       <NavLink link={"/"} name={"Overview"} icon={faCalendar} />
       <NavLink link={"/invoices"} name={"Invoices"} icon={faFile} />
       <NavLink link={"/tasks"} name={"Tasks"} icon={faClipboard} />

@@ -6,15 +6,15 @@ import Timekeeping from "../pages/timekeeping/Timekeeping";
 import Projects from "../pages/projects/Projects";
 import NoMatch from "./NoMatch";
 
-export default function Main() {
+export default function Main({ onToggle }: Toggle) {
   return (
     <Routes>
-      <Route index element={<Overview />} />
-      <Route path="invoices" element={<Invoices />} />
-      <Route path="tasks" element={<Tasks />} />
-      <Route path="timekeeping" element={<Timekeeping />} />
-      <Route path="projects" element={<Projects />} />
-      <Route path="*" element={<NoMatch />} />
+      <Route index element={<Overview onToggle={onToggle} />} />
+      <Route path="invoices" element={<Invoices onToggle={onToggle} />} />
+      <Route path="tasks" element={<Tasks onToggle={onToggle} />} />
+      <Route path="timekeeping" element={<Timekeeping onToggle={onToggle} />} />
+      <Route path="projects" element={<Projects onToggle={onToggle} />} />
+      <Route path="*" element={<NoMatch onToggle={onToggle} />} />
     </Routes>
   );
 }

@@ -12,13 +12,16 @@ import {
   Button,
   TableCaption,
   Box,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { useDataContext } from "../../hooks/useDataContext";
 import { useEffect } from "react";
 import axios from "axios";
+import NavbarToggle from "../../components/NavbarToggle";
 
-export default function Timekeeping() {
+export default function Timekeeping({ onToggle }: Toggle) {
   const { tasks, getTasks, token } = useDataContext();
+  const [phoneSize] = useMediaQuery("(max-width: 950px)");
 
   useEffect(() => {
     getTasks(true);
@@ -123,7 +126,10 @@ export default function Timekeeping() {
       </Helmet>
       <Flex direction="column" w="100%" h="100vh">
         <Flex h="5.5em" bg="white" align="center">
-          <Heading p="1em">Timekeeping</Heading>
+          {phoneSize && <NavbarToggle onToggle={onToggle} />}
+          <Heading p="1em" ml="1em">
+            Timekeeping
+          </Heading>
         </Flex>
         <Flex direction="column" overflow="auto">
           <Box minH="min-content">
