@@ -26,12 +26,18 @@ type Tasks = {
   id: number;
 };
 
+type InvoiceTasks = {
+  seconds: number;
+};
+
 interface DashboardContext {
   token(): false | PostResponse;
   getProjects: () => Promise<void>;
   projects: Projects[];
   getTasks: (patch?: boolean) => Promise<void>;
   tasks: Tasks[];
+  invoiceTasks: InvoiceTasks[];
+  setInvoiceTasks: React.Dispatch<React.SetStateAction<InvoiceTasks[]>>;
 }
 
 export const DataContext = createContext<DashboardContext | null>(null);
@@ -39,6 +45,7 @@ export const DataContext = createContext<DashboardContext | null>(null);
 export function DataProvider({ children }: { children?: React.ReactNode }) {
   const [projects, setProjects] = useState<Projects[]>([]);
   const [tasks, setTasks] = useState<Tasks[]>([]);
+  const [invoiceTasks, setInvoiceTasks] = useState<InvoiceTasks[]>([]);
 
   function token() {
     const stringifiedAuthentication = localStorage.getItem("data");
@@ -139,6 +146,8 @@ export function DataProvider({ children }: { children?: React.ReactNode }) {
     projects,
     getTasks,
     tasks,
+    invoiceTasks,
+    setInvoiceTasks,
   };
 
   return (
