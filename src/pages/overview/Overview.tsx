@@ -98,7 +98,6 @@ export default function Overview({ onToggle }: Toggle) {
         const verified = newCalender.find((past) => {
           return past === correctDate;
         });
-        console.log(verified);
         if (verified !== undefined) {
           time += data.seconds;
         }
