@@ -16,7 +16,6 @@ import {
 import { useDataContext } from "../../hooks/useDataContext";
 import { useEffect } from "react";
 import axios from "axios";
-import { findDOMNode } from "react-dom";
 
 export default function Timekeeping() {
   const { tasks, getTasks, token } = useDataContext();
