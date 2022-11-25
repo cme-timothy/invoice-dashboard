@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { Flex, Heading, Box } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 
 export default function NoMatch() {
   return (
