@@ -95,7 +95,6 @@ export default function Overview() {
           time += data.seconds;
         }
       });
-      console.log(time);
       return time % 60;
     } else if (calculation === "year") {
       invoices.map((data) => {
@@ -109,7 +108,6 @@ export default function Overview() {
           }
         }
       });
-      console.log(kronor);
       return kronor;
     }
   }
