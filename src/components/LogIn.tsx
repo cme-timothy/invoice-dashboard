@@ -108,7 +108,7 @@ export default function LogIn() {
         <Box fontSize="5xl">
           <FontAwesomeIcon icon={faCircleUser} />
         </Box>
-        <Text pl="0.5em" pr="1em">
+        <Text fontSize="2xl" pl="0.5em" pr="1em">
           {logIn}
         </Text>
       </Button>
