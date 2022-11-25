@@ -69,10 +69,10 @@ export default function Invoices({ onToggle }: Toggle) {
                 <TableCaption>Invoices list</TableCaption>
                 <Thead>
                   <Tr>
-                    <Th>Customer Name</Th>
+                    <Th>Customer</Th>
                     <Th pl="0">Sum total</Th>
-                    <Th pl="0">Expiration date</Th>
-                    <Th pl="0">Status</Th>
+                    <Th pl="0">Expiration</Th>
+                    {!phoneSize && <Th pl="0">Status</Th>}
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -87,12 +87,51 @@ export default function Invoices({ onToggle }: Toggle) {
                         <Td>{invoice.customerName}</Td>
                         <Td pl="0">{invoice.sumTotal} kr</Td>
                         <Td pl="0">{invoice.expirationDate}</Td>
-                        <Td pl="0">{invoice.status}</Td>
-                        <Td p="0em">
-                          <Button onClick={() => deleteInvoice(invoice.id)}>
-                            Delete
-                          </Button>
-                        </Td>
+                        {!phoneSize && (
+                          <>
+                            <Td pl="0">{invoice.status}</Td>
+                            <Td p="0em">
+                              <Button onClick={() => deleteInvoice(invoice.id)}>
+                                Delete
+                              </Button>
+                            </Td>
+                          </>
+                        )}
+                      </Tr>
+                    );
+                  })}
+                </Tbody>
+              </Table>
+            </TableContainer>
+          </Box>
+          <Box minH="min-content">
+            <TableContainer m={phoneSize ? "2em 0 2em 0" : "2em"} bg="white">
+              <Table variant="simple">
+                {phoneSize && (
+                  <TableCaption>Continuation of Invoices list</TableCaption>
+                )}
+                <Thead>
+                  <Tr>{phoneSize && <Th pl="0">Status</Th>}</Tr>
+                </Thead>
+                <Tbody>
+                  {invoices.map((invoice) => {
+                    return (
+                      <Tr
+                        key={invoice.id}
+                        borderTop="1px solid"
+                        borderBottom="1px Solid"
+                        borderColor="gray.100"
+                      >
+                        {phoneSize && (
+                          <>
+                            <Td pl="0">{invoice.status}</Td>
+                            <Td p="0em">
+                              <Button onClick={() => deleteInvoice(invoice.id)}>
+                                Delete
+                              </Button>
+                            </Td>
+                          </>
+                        )}
                       </Tr>
                     );
                   })}
