@@ -12,6 +12,7 @@ import {
   Button,
   Box,
   useMediaQuery,
+  TableCaption,
 } from "@chakra-ui/react";
 import CreateInvoice from "./CreateInvoice";
 import { useEffect } from "react";
@@ -56,21 +57,22 @@ export default function Invoices({ onToggle }: Toggle) {
       <Flex direction="column" w="100%" h="100vh">
         <Flex justify="space-between" h="5.5em" bg="white" align="center">
           {phoneSize && <NavbarToggle onToggle={onToggle} />}
-          <Heading p="1em" ml="1em">
+          <Heading p="1em" ml={phoneSize ? "1em" : "0"}>
             Invoices
           </Heading>
           <CreateInvoice />
         </Flex>
         <Flex direction="column" overflow="auto">
           <Box minH="min-content">
-            <TableContainer m="2em" bg="white">
+            <TableContainer m={phoneSize ? "2em 0 2em 0" : "2em"} bg="white">
               <Table variant="simple">
+                <TableCaption>Invoices list</TableCaption>
                 <Thead>
                   <Tr>
                     <Th>Customer Name</Th>
-                    <Th>Sum total</Th>
-                    <Th>Expiration date</Th>
-                    <Th>Status</Th>
+                    <Th pl="0">Sum total</Th>
+                    <Th pl="0">Expiration date</Th>
+                    <Th pl="0">Status</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -83,10 +85,10 @@ export default function Invoices({ onToggle }: Toggle) {
                         borderColor="gray.100"
                       >
                         <Td>{invoice.customerName}</Td>
-                        <Td>{invoice.sumTotal} kr</Td>
-                        <Td>{invoice.expirationDate}</Td>
-                        <Td>{invoice.status}</Td>
-                        <Td p="0.5em">
+                        <Td pl="0">{invoice.sumTotal} kr</Td>
+                        <Td pl="0">{invoice.expirationDate}</Td>
+                        <Td pl="0">{invoice.status}</Td>
+                        <Td p="0em">
                           <Button onClick={() => deleteInvoice(invoice.id)}>
                             Delete
                           </Button>

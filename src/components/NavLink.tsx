@@ -21,7 +21,7 @@ export default function NavLink(props: {
         <Center fontSize="3em" w="1em">
           <FontAwesomeIcon icon={props.icon} />
         </Center>
-        <Heading display="inline" pl="1em" pr="1em">
+        <Heading fontSize="3xl" display="inline" pl="1em" pr="1em">
           {props.name}
         </Heading>
       </Flex>

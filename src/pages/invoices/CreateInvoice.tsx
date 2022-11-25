@@ -128,7 +128,7 @@ export default function LogIn() {
 
   return (
     <>
-      <Button onClick={onOpen} m="2em">
+      <Button onClick={onOpen} m="2em 2em 2em 0">
         Create invoice
       </Button>
       <Modal

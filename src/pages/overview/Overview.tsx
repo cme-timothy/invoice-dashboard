@@ -127,32 +127,35 @@ export default function Overview({ onToggle }: Toggle) {
       <Flex direction="column" w="100%" h="100vh">
         <Flex h="5.5em" bg="white" align="center">
           {phoneSize && <NavbarToggle onToggle={onToggle} />}
-          <Heading p="1em" ml="1em">
+          <Heading p="1em" ml={phoneSize ? "1em" : "0"}>
             Overview
           </Heading>
         </Flex>
-        <SimpleGrid minChildWidth="28em" spacing="1em" m="2em" overflow="auto">
+        <SimpleGrid
+          minChildWidth="23em"
+          spacing="1em"
+          m={phoneSize ? "2em 0 2em 0" : "2em"}
+          overflow="auto"
+        >
           <Box bg="white" minH="4.5em" p="1em">
-            <Heading fontSize="3xl" display="inline" mr="1em">
+            <Heading fontSize="2xl" display="inline" mr="1em">
               Projects: {allProjects()}
             </Heading>
           </Box>
           <Box bg="white" minH="4.5em" p="1em">
-            <Heading fontSize="3xl">Tasks: {allTasks()}</Heading>
+            <Heading fontSize="2xl">Tasks: {allTasks()}</Heading>
           </Box>
           <Box bg="white" minH="4.5em" p="1em">
-            <Heading fontSize="3xl">Invoices: {allInvoices()}</Heading>
+            <Heading fontSize="2xl">Invoices: {allInvoices()}</Heading>
           </Box>
           <Box bg="white" minH="12em" p="1em">
-            <Heading fontSize="3xl">
-              Time logged past 30 days: <br />
-              {handleDate("30days")} min
+            <Heading fontSize="2xl">
+              Time logged past 30 days: {handleDate("30days")} min
             </Heading>
           </Box>
           <Box bg="white" minH="12em" p="1em">
-            <Heading fontSize="3xl">
-              Amount of kronor invoiced past year: <br />
-              {handleDate("year")} kr
+            <Heading fontSize="2xl">
+              Amount of kronor invoiced past year: {handleDate("year")} kr
             </Heading>
           </Box>
         </SimpleGrid>

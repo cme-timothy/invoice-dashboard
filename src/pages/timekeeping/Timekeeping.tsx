@@ -127,20 +127,20 @@ export default function Timekeeping({ onToggle }: Toggle) {
       <Flex direction="column" w="100%" h="100vh">
         <Flex h="5.5em" bg="white" align="center">
           {phoneSize && <NavbarToggle onToggle={onToggle} />}
-          <Heading p="1em" ml="1em">
+          <Heading p="1em" ml={phoneSize ? "1em" : "0"}>
             Timekeeping
           </Heading>
         </Flex>
         <Flex direction="column" overflow="auto">
           <Box minH="min-content">
-            <TableContainer m="2em" bg="white">
+            <TableContainer m={phoneSize ? "2em 0 2em 0" : "2em"} bg="white">
               <Table variant="simple">
                 <TableCaption>Timekeeping list past 30 days</TableCaption>
                 <Thead>
                   <Tr>
                     <Th>Time</Th>
-                    <Th>Task Name</Th>
-                    <Th>Date</Th>
+                    <Th pl="0em">Task</Th>
+                    <Th pl="0em">Date</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -155,8 +155,8 @@ export default function Timekeeping({ onToggle }: Toggle) {
                           borderColor="gray.100"
                         >
                           <Td>{task.time}</Td>
-                          <Td>{task.name}</Td>
-                          <Td>{task.date}</Td>
+                          <Td pl="0em">{task.name}</Td>
+                          <Td pl="0em">{task.date}</Td>
                         </Tr>
                       );
                     }
@@ -164,13 +164,13 @@ export default function Timekeeping({ onToggle }: Toggle) {
                 </Tbody>
               </Table>
             </TableContainer>
-            <TableContainer m="2em" bg="white">
+            <TableContainer m={phoneSize ? "2em 0 2em 0" : "2em"} bg="white">
               <Table variant="simple">
                 <TableCaption>Timekeeping list</TableCaption>
                 <Thead>
                   <Tr>
                     <Th>Time</Th>
-                    <Th>Task Name</Th>
+                    <Th>Task</Th>
                   </Tr>
                 </Thead>
                 <Tbody>

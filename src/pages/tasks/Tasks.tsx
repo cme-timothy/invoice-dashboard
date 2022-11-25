@@ -12,6 +12,7 @@ import {
   Button,
   Box,
   useMediaQuery,
+  TableCaption,
 } from "@chakra-ui/react";
 import { useDataContext } from "../../hooks/useDataContext";
 import { useEffect } from "react";
@@ -52,7 +53,7 @@ export default function Tasks({ onToggle }: Toggle) {
       <Flex direction="column" w="100%" h="100vh">
         <Flex h="5.5em" bg="white" align="center">
           {phoneSize && <NavbarToggle onToggle={onToggle} />}
-          <Heading p="1em" ml="1em">
+          <Heading p="1em" ml={phoneSize ? "1em" : "0"}>
             Tasks
           </Heading>
         </Flex>
@@ -60,10 +61,11 @@ export default function Tasks({ onToggle }: Toggle) {
           <Box minH="min-content">
             <TableContainer m={phoneSize ? "2em 0 2em 0" : "2em"} bg="white">
               <Table variant="simple">
+                <TableCaption>Tasks list</TableCaption>
                 <Thead>
                   <Tr>
-                    <Th>Task Name</Th>
-                    <Th>Project Name</Th>
+                    <Th>Task</Th>
+                    <Th>Project</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -77,7 +79,7 @@ export default function Tasks({ onToggle }: Toggle) {
                       >
                         <Td>{task.name}</Td>
                         <Td>{task.project}</Td>
-                        <Td p="0.5em">
+                        <Td p="0.5em 1em 0.5em 0">
                           <Button onClick={() => deleteTask(task.id)}>
                             Delete
                           </Button>
