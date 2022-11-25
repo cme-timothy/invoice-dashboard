@@ -93,6 +93,14 @@
       "sumTotal": 69,
       "customerName": "Bengt",
       "id": 3
+    },
+    {
+      "status": "Not paid",
+      "projectName": "Project 3",
+      "expirationDate": "25/12/2022",
+      "sumTotal": 33,
+      "customerName": "Linnea",
+      "id": 5
     }
   ]
 }

@@ -74,7 +74,7 @@ export default function Invoices() {
                     borderColor="gray.100"
                   >
                     <Td>{invoice.customerName}</Td>
-                    <Td>{invoice.sumTotal}</Td>
+                    <Td>{invoice.sumTotal} kr</Td>
                     <Td>{invoice.expirationDate}</Td>
                     <Td>{invoice.status}</Td>
                     <Td p="0.5em">
