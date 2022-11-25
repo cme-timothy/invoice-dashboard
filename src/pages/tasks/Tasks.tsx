@@ -58,7 +58,7 @@ export default function Tasks({ onToggle }: Toggle) {
         </Flex>
         <Flex direction="column" overflow="auto">
           <Box minH="min-content">
-            <TableContainer m="2em" bg="white">
+            <TableContainer m={phoneSize ? "2em 0 2em 0" : "2em"} bg="white">
               <Table variant="simple">
                 <Thead>
                   <Tr>
