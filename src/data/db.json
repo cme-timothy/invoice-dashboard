@@ -85,5 +85,14 @@
       "id": 6
     }
   ],
-  "invoices": []
+  "invoices": [
+    {
+      "status": "Not paid",
+      "projectName": "Project 1",
+      "expirationDate": "25/12/2022",
+      "sumTotal": 69,
+      "customerName": "Bengt",
+      "id": 3
+    }
+  ]
 }
