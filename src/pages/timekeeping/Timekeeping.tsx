@@ -10,10 +10,13 @@ import {
   Th,
   Tbody,
   Button,
+  TableCaption,
+  Box,
 } from "@chakra-ui/react";
 import { useDataContext } from "../../hooks/useDataContext";
 import { useEffect } from "react";
 import axios from "axios";
+import { findDOMNode } from "react-dom";
 
 export default function Timekeeping() {
   const { tasks, getTasks, token } = useDataContext();
@@ -44,6 +47,76 @@ export default function Timekeeping() {
     }
   }
 
+  function handleDate(pastDates: string) {
+    const date = new Date().toLocaleString().slice(0, 10);
+    const year = parseInt(date.slice(6, 10));
+
+    const calenderYear = {
+      January: 31,
+      February: 28,
+      March: 31,
+      April: 30,
+      May: 31,
+      June: 30,
+      July: 31,
+      August: 31,
+      September: 30,
+      October: 31,
+      November: 30,
+      December: 31,
+    };
+
+    const calender: string[] = [];
+    for (let y = year - 1; y <= year + 1; y++) {
+      for (let m = 0; m <= 12; m++) {
+        for (let d = 1; d <= Object.values(calenderYear)[m - 1]; d++) {
+          calender.push(`${d}/${m}/${y}`);
+        }
+      }
+    }
+
+    const indexDate = calender.findIndex((indexDate) => {
+      return indexDate === date;
+    });
+
+    const calenderMonths = [
+      "empty",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+
+    const pastDay = parseInt(pastDates.slice(0, 2));
+    const pastMonth = pastDates.slice(3, 6);
+    const pastYear = parseInt(
+      pastDates.slice(pastDates.length - 4, pastDates.length)
+    );
+
+    const indexMonth = calenderMonths.findIndex((indexMonth) => {
+      return indexMonth === pastMonth;
+    });
+
+    const correctDate = `${pastDay}/${indexMonth}/${pastYear}`;
+    const newCalender = calender.slice(indexDate - 29, indexDate + 1);
+    const verified = newCalender.find((past) => {
+      return past === correctDate;
+    });
+    if (verified !== undefined) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   return (
     <>
       <Helmet>
@@ -53,34 +126,72 @@ export default function Timekeeping() {
         <Flex h="5.5em" bg="white" align="center">
           <Heading p="1em">Timekeeping</Heading>
         </Flex>
-        <TableContainer m="2em" bg="white">
-          <Table variant="simple">
-            <Thead>
-              <Tr>
-                <Th>Time</Th>
-                <Th>Task Name</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {tasks.map((task) => {
-                return (
-                  <Tr
-                    key={task.id}
-                    borderTop="1px solid"
-                    borderBottom="1px Solid"
-                    borderColor="gray.100"
-                  >
-                    <Td>{task.time}</Td>
-                    <Td>{task.name}</Td>
-                    <Td p="0.5em">
-                      <Button onClick={() => patchTask(task.id)}>Delete</Button>
-                    </Td>
+        <Flex direction="column" overflow="auto">
+          <Box minH="min-content">
+            <TableContainer m="2em" bg="white">
+              <Table variant="simple">
+                <TableCaption>Timekeeping list past 30 days</TableCaption>
+                <Thead>
+                  <Tr>
+                    <Th>Time</Th>
+                    <Th>Task Name</Th>
+                    <Th>Date</Th>
                   </Tr>
-                );
-              })}
-            </Tbody>
-          </Table>
-        </TableContainer>
+                </Thead>
+                <Tbody>
+                  {tasks.map((task) => {
+                    const verified = handleDate(task.date);
+                    if (verified) {
+                      return (
+                        <Tr
+                          key={task.id}
+                          borderTop="1px solid"
+                          borderBottom="1px Solid"
+                          borderColor="gray.100"
+                        >
+                          <Td>{task.time}</Td>
+                          <Td>{task.name}</Td>
+                          <Td>{task.date}</Td>
+                        </Tr>
+                      );
+                    }
+                  })}
+                </Tbody>
+              </Table>
+            </TableContainer>
+            <TableContainer m="2em" bg="white">
+              <Table variant="simple">
+                <TableCaption>Timekeeping list</TableCaption>
+                <Thead>
+                  <Tr>
+                    <Th>Time</Th>
+                    <Th>Task Name</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {tasks.map((task) => {
+                    return (
+                      <Tr
+                        key={task.id}
+                        borderTop="1px solid"
+                        borderBottom="1px Solid"
+                        borderColor="gray.100"
+                      >
+                        <Td>{task.time}</Td>
+                        <Td>{task.name}</Td>
+                        <Td p="0.5em">
+                          <Button onClick={() => patchTask(task.id)}>
+                            Delete
+                          </Button>
+                        </Td>
+                      </Tr>
+                    );
+                  })}
+                </Tbody>
+              </Table>
+            </TableContainer>
+          </Box>
+        </Flex>
       </Flex>
     </>
   );
