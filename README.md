@@ -30,7 +30,7 @@ To setup local development server, run:
 npm run dev
 ```
 
-To setup local JSON server, run:
+To setup global JSON server, run:
 
 ```
 json-server src/data/db.json -m ./node_modules/json-server-auth -r src/data/routes.json
