@@ -30,7 +30,7 @@ type PostResponse = {
 };
 
 export default function LogIn() {
-  const { getProjects, getTasks } = useDataContext();
+  const { getProjects, getTasks, getInvoices } = useDataContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
   const finalRef = useRef(null);
@@ -66,6 +66,7 @@ export default function LogIn() {
         localStorage.setItem("data", JSON.stringify(response.data));
         getProjects();
         getTasks();
+        getInvoices();
       }
     } catch (error) {
       console.log(error);
