@@ -87,7 +87,7 @@
   ],
   "invoices": [
     {
-      "status": "Not paid",
+      "status": "Paid",
       "projectName": "Project 1",
       "expirationDate": "25/12/2022",
       "sumTotal": 69,

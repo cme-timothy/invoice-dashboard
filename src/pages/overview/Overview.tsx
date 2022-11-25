@@ -4,14 +4,115 @@ import { useDataContext } from "../../hooks/useDataContext";
 import { useEffect } from "react";
 
 export default function Overview() {
-  const { projects, getProjects, tasks, getTasks } = useDataContext();
+  const { projects, getProjects, tasks, getTasks, invoices, getInvoices } =
+    useDataContext();
 
   useEffect(() => {
     getProjects();
-    console.log(projects);
     getTasks();
-    console.log(tasks);
+    getInvoices();
   }, []);
+
+  function allProjects() {
+    return projects.length;
+  }
+
+  function allTasks() {
+    return tasks.length;
+  }
+
+  function allInvoices() {
+    return invoices.length;
+  }
+
+  function handleDate(calculation: string) {
+    const date = new Date().toLocaleString().slice(0, 10);
+    const year = parseInt(date.slice(6, 10));
+
+    const calenderYear = {
+      January: 31,
+      February: 28,
+      March: 31,
+      April: 30,
+      May: 31,
+      June: 30,
+      July: 31,
+      August: 31,
+      September: 30,
+      October: 31,
+      November: 30,
+      December: 31,
+    };
+
+    const calender: string[] = [];
+    for (let y = year - 1; y <= year + 1; y++) {
+      for (let m = 0; m <= 12; m++) {
+        for (let d = 1; d <= Object.values(calenderYear)[m - 1]; d++) {
+          calender.push(`${d}/${m}/${y}`);
+        }
+      }
+    }
+
+    const indexDate = calender.findIndex((indexDate) => {
+      return indexDate === date;
+    });
+
+    const calenderMonths = [
+      "empty",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    let kronor = 0;
+    let time = 0;
+    if (calculation === "30days") {
+      tasks.map((data) => {
+        const pastDay = parseInt(data.date.slice(0, 2));
+        const pastMonth = data.date.slice(3, 6);
+        const pastYear = parseInt(
+          data.date.slice(data.date.length - 4, data.date.length)
+        );
+        const indexMonth = calenderMonths.findIndex((indexMonth) => {
+          return indexMonth === pastMonth;
+        });
+        const correctDate = `${pastDay}/${indexMonth}/${pastYear}`;
+        const newCalender = calender.slice(indexDate - 29, indexDate + 1);
+
+        const verified = newCalender.find((past) => {
+          return past === correctDate;
+        });
+        console.log(verified);
+        if (verified !== undefined) {
+          time += data.seconds;
+        }
+      });
+      console.log(time);
+      return time % 60;
+    } else if (calculation === "year") {
+      invoices.map((data) => {
+        if (data.status === "Paid") {
+          const newCalender = calender.slice(indexDate - 364, indexDate + 31);
+          const verified = newCalender.find((past) => {
+            return past === data.expirationDate;
+          });
+          if (verified !== undefined) {
+            kronor += data.sumTotal;
+          }
+        }
+      });
+      console.log(kronor);
+      return kronor;
+    }
+  }
 
   return (
     <>
@@ -22,21 +123,29 @@ export default function Overview() {
         <Flex h="5.5em" bg="white" align="center">
           <Heading p="1em">Overview</Heading>
         </Flex>
-        <SimpleGrid minChildWidth="25em" spacing="1em" m="2em" overflow="auto">
-          <Box bg="white" minH="15em" p="1em">
-            Projects
+        <SimpleGrid minChildWidth="28em" spacing="1em" m="2em" overflow="auto">
+          <Box bg="white" minH="4.5em" p="1em">
+            <Heading fontSize="3xl" display="inline" mr="1em">
+              Projects: {allProjects()}
+            </Heading>
           </Box>
-          <Box bg="white" minH="15em" p="1em">
-            Tasks
+          <Box bg="white" minH="4.5em" p="1em">
+            <Heading fontSize="3xl">Tasks: {allTasks()}</Heading>
           </Box>
-          <Box bg="white" minH="15em" p="1em">
-            Invoices
+          <Box bg="white" minH="4.5em" p="1em">
+            <Heading fontSize="3xl">Invoices: {allInvoices()}</Heading>
           </Box>
-          <Box bg="white" minH="15em" p="1em">
-            Logged time: past 30 days
+          <Box bg="white" minH="12em" p="1em">
+            <Heading fontSize="3xl">
+              Time logged past 30 days: <br />
+              {handleDate("30days")} min
+            </Heading>
           </Box>
-          <Box bg="white" minH="15em" p="1em">
-            Money earned: past year
+          <Box bg="white" minH="12em" p="1em">
+            <Heading fontSize="3xl">
+              Amount of kronor invoiced past year: <br />
+              {handleDate("year")} kr
+            </Heading>
           </Box>
         </SimpleGrid>
       </Flex>
