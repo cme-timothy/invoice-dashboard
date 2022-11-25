@@ -111,7 +111,7 @@ export default function Invoices({ onToggle }: Toggle) {
                   <TableCaption>Continuation of Invoices list</TableCaption>
                 )}
                 <Thead>
-                  <Tr>{phoneSize && <Th pl="0">Status</Th>}</Tr>
+                  <Tr>{phoneSize && <Th>Status</Th>}</Tr>
                 </Thead>
                 <Tbody>
                   {invoices.map((invoice) => {
@@ -124,8 +124,8 @@ export default function Invoices({ onToggle }: Toggle) {
                       >
                         {phoneSize && (
                           <>
-                            <Td pl="0">{invoice.status}</Td>
-                            <Td p="0em">
+                            <Td>{invoice.status}</Td>
+                            <Td>
                               <Button onClick={() => deleteInvoice(invoice.id)}>
                                 Delete
                               </Button>
