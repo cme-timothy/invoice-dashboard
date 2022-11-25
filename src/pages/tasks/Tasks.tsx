@@ -10,6 +10,7 @@ import {
   Th,
   Tbody,
   Button,
+  Box,
 } from "@chakra-ui/react";
 import { useDataContext } from "../../hooks/useDataContext";
 import { useEffect } from "react";
@@ -39,7 +40,7 @@ export default function Tasks() {
       console.log("not logged in");
     }
   }
-  
+
   return (
     <>
       <Helmet>
@@ -49,36 +50,40 @@ export default function Tasks() {
         <Flex h="5.5em" bg="white" align="center">
           <Heading p="1em">Tasks</Heading>
         </Flex>
-        <TableContainer m="2em" bg="white">
-          <Table variant="simple">
-            <Thead>
-              <Tr>
-                <Th>Task Name</Th>
-                <Th>Project Name</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {tasks.map((task) => {
-                return (
-                  <Tr
-                    key={task.id}
-                    borderTop="1px solid"
-                    borderBottom="1px Solid"
-                    borderColor="gray.100"
-                  >
-                    <Td>{task.name}</Td>
-                    <Td>{task.project}</Td>
-                    <Td p="0.5em">
-                      <Button onClick={() => deleteTask(task.id)}>
-                        Delete
-                      </Button>
-                    </Td>
+        <Flex direction="column" overflow="auto">
+          <Box minH="min-content">
+            <TableContainer m="2em" bg="white">
+              <Table variant="simple">
+                <Thead>
+                  <Tr>
+                    <Th>Task Name</Th>
+                    <Th>Project Name</Th>
                   </Tr>
-                );
-              })}
-            </Tbody>
-          </Table>
-        </TableContainer>
+                </Thead>
+                <Tbody>
+                  {tasks.map((task) => {
+                    return (
+                      <Tr
+                        key={task.id}
+                        borderTop="1px solid"
+                        borderBottom="1px Solid"
+                        borderColor="gray.100"
+                      >
+                        <Td>{task.name}</Td>
+                        <Td>{task.project}</Td>
+                        <Td p="0.5em">
+                          <Button onClick={() => deleteTask(task.id)}>
+                            Delete
+                          </Button>
+                        </Td>
+                      </Tr>
+                    );
+                  })}
+                </Tbody>
+              </Table>
+            </TableContainer>
+          </Box>
+        </Flex>
       </Flex>
     </>
   );

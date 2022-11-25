@@ -10,6 +10,7 @@ import {
   Th,
   Tbody,
   Button,
+  Box,
 } from "@chakra-ui/react";
 import { useDataContext } from "../../hooks/useDataContext";
 import { useEffect } from "react";
@@ -51,39 +52,43 @@ export default function Project() {
         <Flex h="5.5em" bg="white" align="center">
           <Heading p="1em">Projects</Heading>
         </Flex>
-        <TableContainer m="2em" bg="white">
-          <Table variant="simple">
-            <Thead>
-              <Tr>
-                <Th>Project Name</Th>
-                <Th>Amount of Tasks</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {projects.map((project) => {
-                const allTasks = tasks.filter((task) => {
-                  return task.project === project.name;
-                });
-                return (
-                  <Tr
-                    key={project.id}
-                    borderTop="1px solid"
-                    borderBottom="1px Solid"
-                    borderColor="gray.100"
-                  >
-                    <Td>{project.name}</Td>
-                    <Td>{allTasks.length}</Td>
-                    <Td p="0.5em">
-                      <Button onClick={() => deleteProject(project.id)}>
-                        Delete
-                      </Button>
-                    </Td>
+        <Flex direction="column" overflow="auto">
+          <Box minH="min-content">
+            <TableContainer m="2em" bg="white">
+              <Table variant="simple">
+                <Thead>
+                  <Tr>
+                    <Th>Project Name</Th>
+                    <Th>Amount of Tasks</Th>
                   </Tr>
-                );
-              })}
-            </Tbody>
-          </Table>
-        </TableContainer>
+                </Thead>
+                <Tbody>
+                  {projects.map((project) => {
+                    const allTasks = tasks.filter((task) => {
+                      return task.project === project.name;
+                    });
+                    return (
+                      <Tr
+                        key={project.id}
+                        borderTop="1px solid"
+                        borderBottom="1px Solid"
+                        borderColor="gray.100"
+                      >
+                        <Td>{project.name}</Td>
+                        <Td>{allTasks.length}</Td>
+                        <Td p="0.5em">
+                          <Button onClick={() => deleteProject(project.id)}>
+                            Delete
+                          </Button>
+                        </Td>
+                      </Tr>
+                    );
+                  })}
+                </Tbody>
+              </Table>
+            </TableContainer>
+          </Box>
+        </Flex>
       </Flex>
     </>
   );
